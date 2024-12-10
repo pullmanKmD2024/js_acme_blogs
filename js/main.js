@@ -45,6 +45,7 @@ function createSelectOptions(users) {
 // Function 3
 
 function toggleCommentSection(postId) {
+    if (!postId) return undefined;
 
     const section = document.querySelector(`section[data-post-id="${postId}"]`);
     
@@ -55,9 +56,11 @@ function toggleCommentSection(postId) {
     return section;
 }
 
+
 // Function 4
 
 function toggleCommentButton(postId) {
+    if (!postId) return undefined;
 
     const button = document.querySelector(`button[data-post-id="${postId}"]`);
     
@@ -68,9 +71,12 @@ function toggleCommentButton(postId) {
     return button;
 }
 
+
 // Function 5
 
 function deleteChildElements(parentElement) {
+
+    if (!(parentElement instanceof HTMLElement)) return undefined;
 
     let child = parentElement.lastElementChild;
     
@@ -81,6 +87,7 @@ function deleteChildElements(parentElement) {
     
     return parentElement;
 }
+
 
 // Function 6
 
@@ -144,6 +151,8 @@ function createComments(comments) {
 // Function 9
 
 function populateSelectMenu(users) {
+
+    if (!users) return undefined;
     const selectMenu = document.getElementById('selectMenu');
     const options = createSelectOptions(users);
 
@@ -153,6 +162,7 @@ function populateSelectMenu(users) {
     
     return selectMenu;
 }
+
 
 // Function 10
 
@@ -169,6 +179,9 @@ async function getUsers() {
 // Function 11
 
 async function getUserPosts(userId) {
+
+    if (!userId) return undefined;
+
     try {
         const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
         const posts = await response.json();
@@ -178,9 +191,13 @@ async function getUserPosts(userId) {
     }
 }
 
+
 // Function 12
 
 async function getUser(userId) {
+
+    if (!userId) return undefined;
+
     try {
         const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
         const user = await response.json();
@@ -194,6 +211,9 @@ async function getUser(userId) {
 // Function 13
 
 async function getPostComments(postId) {
+
+    if (!postId) return undefined;
+
     try {
         const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
         const comments = await response.json();
@@ -203,9 +223,12 @@ async function getPostComments(postId) {
     }
 }
 
+
 // Function 14
 
 async function displayComments(postId) {
+
+    if (!postId) return undefined;
     const section = document.createElement('section');
     section.dataset.postId = postId;
     section.classList.add('comments', 'hide');
@@ -216,9 +239,12 @@ async function displayComments(postId) {
     return section;
 }
 
+
 // Function 15
 
 async function createPosts(posts) {
+
+    if (!posts) return undefined;
     const fragment = document.createDocumentFragment();
 
     for (const post of posts) {
@@ -246,6 +272,7 @@ async function createPosts(posts) {
 }
 
 
+
 // Function 16
 
 async function displayPosts(posts) {
@@ -261,6 +288,8 @@ async function displayPosts(posts) {
 // Function 17
 
 function toggleComments(event, postId) {
+
+    if (!event || !postId) return undefined;
     event.target.listener = true;
     const section = toggleCommentSection(postId);
     const button = toggleCommentButton(postId);
@@ -271,7 +300,7 @@ function toggleComments(event, postId) {
 // Function 18
 
 async function refreshPosts(posts) {
-
+    if (!posts) return undefined;
     const removeButtons = removeButtonListeners();
     const main = deleteChildElements(document.querySelector('main'));
     const fragment = await displayPosts(posts);
@@ -283,7 +312,8 @@ async function refreshPosts(posts) {
 // Function 19
 
 async function selectMenuChangeEventHandler(event) {
-
+    
+    if (!event) return undefined;
     event.target.disabled = true;
     
     const userId = event.target.value || 1;
